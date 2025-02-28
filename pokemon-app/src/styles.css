@@ -1,10 +1,10 @@
 /* styles.css */
 :root {
-    --background-color: #f4acace5;
-    --text-color: #000000;
-    --background-image: url('/path/to/light-background.jpg');
-  }
-  
+  --background-color: #f4acace5;
+  --text-color: #000000
+::contentReference[oaicite:0]{index=0}
+}
+
   [data-theme='dark'] {
     --background-color: #340606e4;
     --text-color: #ffffff;
@@ -83,3 +83,5 @@
     font-size: 1em;
     cursor: pointer;
   }
+
+ 

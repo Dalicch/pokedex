@@ -1,15 +1,15 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+// PokemonDetail.jsx
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-function PokemonDetail() {
-  const { name } = useParams();
+function PokemonDetail({ name }) {
   const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .then((response) => setPokemon(response.data))
-      .catch((error) => console.error("Error al obtener detalles", error));
+      .catch((error) => console.error('Error al obtener detalles', error));
   }, [name]);
 
   if (!pokemon) return <p>Cargando...</p>;
@@ -25,8 +25,31 @@ function PokemonDetail() {
 }
 
 export default PokemonDetail;
+// /* aqui muestro nombre peso y altura de los pokemons seleccionados en una pagina separada
+// usando react para consumir la api solicitamos el poquemon seleccionado consumiendo el nombre desde la url  con use params */ 
 
 
 /* aqui muestro nombre peso y altura de los pokemons seleccionados en una pagina separada
 usando react para consumir la api solicitamos el poquemon seleccionado consumiendo el nombre desde la url  con use params
  */
+
+/*<div key={index} className="pokemon-card">
+              <div className="pokemon-image">
+                <img
+                  src={pokemonDetails[pokemon.name]?.image || "https://via.placeholder.com/96"}
+                  alt={pokemon.name}
+                />
+              </div>
+              <div className="pokemon-name">
+                <Link to={`/pokemon/${pokemon.name}`}>{pokemon.name}</Link>
+              </div>
+              <div className="pokemon-description">
+                {pokemonDetails[pokemon.name]?.description}
+              </div>
+              <button
+                onClick={() => toggleFavorite(pokemon.name)}
+                className="favorite-button"
+              >
+                {favorites.includes(pokemon.name) ? "★" : "☆"}
+              </button>
+            </div>*/
