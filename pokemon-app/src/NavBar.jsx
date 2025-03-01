@@ -7,7 +7,6 @@
 
     return (
       <nav className={`navbar ${theme}`}>
-        <h1>Pokédex</h1>
         <button onClick={toggleTheme}>
           Cambiar a {theme === 'light' ? 'Oscuro' : 'Claro'}
         </button>
