@@ -3,13 +3,16 @@ import axios from "axios";
 import { ThemeProvider } from './ThemeContext';
 import Navbar from './NavBar';
 import './styles.css';
+import PokemonList from './PokemonList';
+import Favoritos from './Favoritos';
+import PokemonModal from './PokemonModal'; 
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [offset, setOffset] = useState(0);
   const [pokemonDetails, setPokemonDetails] = useState({});
-  const [selectedPokemon, setSelectedPokemon] = useState(null); // Estado para el Pokémon seleccionado
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
 
   useEffect(() => {
     // Cargar favoritos desde el almacenamiento local al iniciar
@@ -29,7 +32,7 @@ function App() {
               [pokemon.name]: {
                 image: detailResponse.data.sprites.front_default,
                 description: "Cargando descripción...",
-                types: detailResponse.data.types.map((type) => type.type.name), // Tipos del Pokémon
+                types: detailResponse.data.types.map((type) => type.type.name),
               },
             }));
             // Obtener la descripción del Pokémon
@@ -81,97 +84,47 @@ function App() {
         <ThemeProvider>
           <Navbar />
         </ThemeProvider>
-        <h2>Favoritos</h2>
-        {favorites.length === 0 ? (
-          <p>No tienes Pokémon favoritos aún.</p>
-        ) : (
-          <ul className="favorites-list">
-            {favorites.map((name, index) => (
-              <li key={index}>
-                <button onClick={() => openPokemonDetails(name)}>{name}</button>
-                <button onClick={() => toggleFavorite(name)}>★</button>
-              </li>
-            ))}
-          </ul>
-        )}
-    
+
+        {/* Componente Favoritos */}
+        <Favoritos
+          favorites={favorites}
+          openPokemonDetails={openPokemonDetails}
+          toggleFavorite={toggleFavorite}
+        />
+
         <h2>Todos los Pokémon</h2>
-        <div className="pokemon-list-container">
-          <div className="pokemon-list">
-            {pokemons.slice(offset, offset + 20).map((pokemon, index) => (
-              <div
-                key={index}
-                className="pokemon-card"
-                onClick={() => openPokemonDetails(pokemon.name)}
-              >
-                <div className="pokemon-image">
-                  <img
-                    src={pokemonDetails[pokemon.name]?.image || "https://via.placeholder.com/96"}
-                    alt={pokemon.name}
-                  />
-                </div>
-                <div className="pokemon-name">{pokemon.name}</div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorite(pokemon.name);
-                  }}
-                  className="favorite-button"
-                >
-                  {favorites.includes(pokemon.name) ? "★" : "☆"}
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
+        <PokemonList
+          pokemons={pokemons}
+          offset={offset}
+          toggleFavorite={toggleFavorite}
+          openPokemonDetails={openPokemonDetails}
+          favorites={favorites}
+          pokemonDetails={pokemonDetails}
+        />
         <div className="pagination-buttons">
           {offset > 0 && (
-            <button onClick={() => setOffset((prev) => Math.max(prev - 20, 0))}>
+            <button onClick={() => setOffset((prev) => Math.max(prev - 8, 0))}>
               Anteriores
             </button>
           )}
-          {offset + 20 < pokemons.length && (
-            <button onClick={() => setOffset((prev) => prev + 20)}>
+          {offset + 8 < pokemons.length && (
+            <button onClick={() => setOffset((prev) => prev + 8)}>
               Siguientes
             </button>
           )}
         </div>
       </div>
-  
-      {/* Modal (fuera del contenedor principal) */}
-      {selectedPokemon && (
-        <div className="pokemon-modal-overlay">
-          <div className="pokemon-modal">
-            <button className="close-modal" onClick={closePokemonDetails}>
-              &times;
-            </button>
-            <div className="modal-content">
-              <img
-                src={pokemonDetails[selectedPokemon]?.image}
-                alt={selectedPokemon}
-              />
-              <h2>{selectedPokemon}</h2>
-              <p><strong>Descripción:</strong> {pokemonDetails[selectedPokemon]?.description}</p>
-              <p><strong>Tipos:</strong> {pokemonDetails[selectedPokemon]?.types.join(", ")}</p>
-              {/* Botón de favoritos en el modal */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation(); // Evitar que el clic cierre el modal
-                  toggleFavorite(selectedPokemon);
-                }}
-                className="favorite-button"
-              >
-                {favorites.includes(selectedPokemon) ? "★" : "☆"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+
+      {/* Componente PokemonModal */}
+      <PokemonModal
+        selectedPokemon={selectedPokemon}
+        pokemonDetails={pokemonDetails}
+        favorites={favorites}
+        toggleFavorite={toggleFavorite}
+        closePokemonDetails={closePokemonDetails}
+      />
     </div>
   );
 }
 
-export default App;   
-
-// /* aqui muestro los pokemons en una lista con su imagen nombre y descripcion
-// con un boton para ver detalles y otro para agregar a favoritos */                    
+export default App;
