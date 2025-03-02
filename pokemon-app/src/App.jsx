@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { ThemeProvider } from './ThemeContext';
-import Navbar from './NavBar';
-import './styles.css';
-import PokemonList from './PokemonList';
-import Favoritos from './Favoritos';
-import PokemonModal from './PokemonModal'; 
+import Navbar from './components/NavBar/NavBar';
+import PokemonList from './components/PokemonList/PokemonList';
+import Favoritos from './components/Favoritos/Favoritos';
+import PokemonModal from './components/PokemonModal/PokemonModal'; 
+import './styles/global.css';
 
 function App() {
   const [pokemons, setPokemons] = useState([]);

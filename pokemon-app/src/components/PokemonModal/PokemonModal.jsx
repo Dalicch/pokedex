@@ -1,5 +1,6 @@
 // PokemonModal.jsx
 import React from 'react';
+import './PokemonModal.css';
 
 const PokemonModal = ({ selectedPokemon, pokemonDetails, favorites, toggleFavorite, closePokemonDetails }) => {
   if (!selectedPokemon) return null; // No renderizar si no hay un Pokémon seleccionado

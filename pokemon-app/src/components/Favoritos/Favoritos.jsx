@@ -1,5 +1,6 @@
 // Favoritos.jsx
 import React from 'react';
+import './Favoritos.css';
 
 const Favoritos = ({ favorites, openPokemonDetails, toggleFavorite }) => {
   return (

@@ -1,5 +1,6 @@
 // PokemonList.jsx
 import React from 'react';
+import './PokemonList.css';
 
 const PokemonList = ({ pokemons, offset, toggleFavorite, openPokemonDetails, favorites, pokemonDetails }) => {
   return (

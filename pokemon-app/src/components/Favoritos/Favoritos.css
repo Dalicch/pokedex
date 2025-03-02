@@ -1,0 +1,17 @@
+/* src/components/Favoritos/Favoritos.css */
+.favorites-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .favorites-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  
+  .favorites-list button {
+    margin-left: 10px;
+  }

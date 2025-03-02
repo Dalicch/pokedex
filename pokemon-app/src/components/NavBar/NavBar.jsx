@@ -1,6 +1,7 @@
   // Navbar.js
   import React, { useContext } from 'react';
-  import { ThemeContext } from './ThemeContext';
+  import { ThemeContext } from '../../ThemeContext';
+  import './Navbar.css';
 
   const Navbar = () => {
     const { theme, toggleTheme } = useContext(ThemeContext);

@@ -1,0 +1,32 @@
+/* src/styles/global.css */
+:root {
+    --background-color: #f4acace5;
+    --text-color: #000000;
+    --background-image: url('/path/to/light-background.jpg');
+  }
+  
+  [data-theme='dark'] {
+    --background-color: #340606e4;
+    --text-color: #ffffff;
+    --background-image: url('/path/to/dark-background.jpg');
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal del body */
+  }
+  
+  h1, h2 {
+    text-align: center;
+  }
+  
+  /* Efecto de desenfoque en el fondo cuando el modal está abierto */
+  .blur-background {
+    filter: blur(5px);
+  }
