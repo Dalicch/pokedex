@@ -1,24 +1,22 @@
+// App.jsx
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ThemeProvider } from './ThemeContext';
 import Navbar from './components/NavBar/NavBar';
 import PokemonList from './components/PokemonList/PokemonList';
-import Favoritos from './components/Favoritos/Favoritos';
+import Favoritos from './components/Favoritos/FavoritosList';
 import PokemonModal from './components/PokemonModal/PokemonModal'; 
 import './styles/global.css';
+import { useFavorites } from './components/favoritesContext/FavoritesContext';
+import './PokemonDetailsContext'
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
-  const [favorites, setFavorites] = useState([]);
+  const { favorites, toggleFavorite } = useFavorites();
   const [offset, setOffset] = useState(0);
   const [pokemonDetails, setPokemonDetails] = useState({});
   const [selectedPokemon, setSelectedPokemon] = useState(null);
 
   useEffect(() => {
-    // Cargar favoritos desde el almacenamiento local al iniciar
-    const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(savedFavorites);
-
     // Obtener la lista de Pokémon
     axios
       .get("https://pokeapi.co/api/v2/pokemon?limit=151")
@@ -54,18 +52,6 @@ function App() {
       .catch((error) => console.error("Error al obtener Pokémon", error));
   }, []);
 
-  // Función para manejar el marcado/desmarcado de favoritos
-  const toggleFavorite = (pokemonName) => {
-    let updatedFavorites;
-    if (favorites.includes(pokemonName)) {
-      updatedFavorites = favorites.filter((name) => name !== pokemonName);
-    } else {
-      updatedFavorites = [...favorites, pokemonName];
-    }
-    setFavorites(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-  };
-
   // Función para abrir el modal con los detalles del Pokémon
   const openPokemonDetails = (pokemonName) => {
     setSelectedPokemon(pokemonName);
@@ -81,15 +67,13 @@ function App() {
       {/* Contenedor principal (se aplicará el desenfoque) */}
       <div className={selectedPokemon ? "blur-background" : ""}>
         <h1>Pokédex</h1>
-        <ThemeProvider>
-          <Navbar />
-        </ThemeProvider>
-
+        <Navbar/>
         {/* Componente Favoritos */}
         <Favoritos
           favorites={favorites}
           openPokemonDetails={openPokemonDetails}
           toggleFavorite={toggleFavorite}
+          pokemonDetails={pokemonDetails} // Pasa pokemonDetails al componente Favoritos.
         />
 
         <h2>Todos los Pokémon</h2>

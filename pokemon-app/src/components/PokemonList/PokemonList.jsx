@@ -1,34 +1,23 @@
-// PokemonList.jsx
+// components/PokemonList/PokemonList.jsx
 import React from 'react';
-import './PokemonList.css';
+import { useFavorites } from '../../components/favoritesContext/FavoritesContext'; // Importa el hook personalizado.
+import PokemonCard from '../PokemonCard/PokemonCard';
 
-const PokemonList = ({ pokemons, offset, toggleFavorite, openPokemonDetails, favorites, pokemonDetails }) => {
+const PokemonList = ({ pokemons, offset, openPokemonDetails, pokemonDetails }) => {
+  const { favorites, toggleFavorite } = useFavorites(); // Obtiene los favoritos y la función toggleFavorite.
+
   return (
     <div className="pokemon-list-container">
       <div className="pokemon-list">
         {pokemons.slice(offset, offset + 8).map((pokemon, index) => (
-          <div
-            key={index}
-            className="pokemon-card"
-            onClick={() => openPokemonDetails(pokemon.name)}
-          >
-            <div className="pokemon-image">
-              <img
-                src={pokemonDetails[pokemon.name]?.image || "https://via.placeholder.com/96"}
-                alt={pokemon.name}
-              />
-            </div>
-            <div className="pokemon-name">{pokemon.name}</div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleFavorite(pokemon.name);
-              }}
-              className="favorite-button"
-            >
-              {favorites.includes(pokemon.name) ? "★" : "☆"}
-            </button>
-          </div>
+          <PokemonCard
+          key={index}
+          name={pokemon.name}
+          image={pokemonDetails[pokemon.name]?.image}
+          toggleFavorite={toggleFavorite}
+          isFavorite={favorites.includes(pokemon.name)}
+          openPokemonDetails={openPokemonDetails}
+        />
         ))}
       </div>
     </div>

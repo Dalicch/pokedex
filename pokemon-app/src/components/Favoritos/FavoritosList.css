@@ -1,0 +1,32 @@
+/* FavoritosList.css */
+.toggle-favorites-button {
+    background-color: #ded6b5bc; /* Color de fondo */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-bottom: 10px; /* Espacio debajo del botón */
+  }
+  
+  .toggle-favorites-button:hover {
+    background-color: #3f3b2cc9; /* Color de fondo al pasar el mouse */
+  }
+  
+  .favorites-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .favorites-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  
+  .favorites-list button {
+    margin-left: 10px;
+  }

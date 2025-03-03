@@ -3,6 +3,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Navbar from "../NavBar/NavBar";
 
 function PokemonDetail() {
   const { name } = useParams();
@@ -18,6 +19,7 @@ function PokemonDetail() {
 
   return (
     <div>
+      <Navbar />
       <h1>{pokemon.name}</h1>
       <img src={pokemon.sprites.front_default} alt={pokemon.name} />
       <p>Altura: {pokemon.height}</p>

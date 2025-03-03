@@ -58,3 +58,12 @@
   .modal-content .favorite-button:hover {
     background-color: #e6b800; /* Color de fondo al pasar el mouse */
   }
+  
+  .pokemon-name-link {
+    text-decoration: none; /* Elimina el subrayado */
+    color: inherit; /* Hereda el color del texto */
+  }
+  
+  .pokemon-name-link:hover {
+    text-decoration: underline; /* Subraya el enlace al pasar el mouse */
+  }
